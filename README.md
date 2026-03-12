@@ -85,3 +85,96 @@ To deploy this backend API live on Render:
 Wait a few minutes. Render will build and deploy your Express App. Once live, Render will give you a public URL (e.g., `https://library-management-system-55xx.onrender.com`).
 
 You can now use that public URL for all your REST API endpoints (e.g., GET `https://.../books`).
+
+---
+
+## 📸 API Testing Report (Render Deployment)
+**Live Base URL:** `https://library-management-system-62-mse-1.onrender.com/books`
+
+The following tests demonstrate the successful live deployment and connection to MongoDB Atlas.
+
+### 1. Add a New Book (POST)
+**Endpoint:** `POST /books`
+**Request Body (JSON):**
+```json
+{
+  "Title": "The Great API Test",
+  "Author": "Arnav",
+  "ISBN": "123-456-789",
+  "Genre": "Programming",
+  "Publisher": "TechBooks",
+  "TotalCopies": 5
+}
+```
+**Response (Status: 201 Created):**
+```json
+{
+  "Title": "The Great API Test",
+  "ISBN": "123-456-789",
+  "Author": "Arnav",
+  "TotalCopies": 5,
+  "Genre": "Programming",
+  "Publisher": "TechBooks",
+  "BookType": "Circulating",
+  "Status": "Available",
+  "_id": "69b251bf70f22dcd82131b73",
+  "createdAt": "2026-03-12T05:40:15.459Z"
+}
+```
+
+### 2. Get All Books (GET)
+**Endpoint:** `GET /books`
+**Response (Status: 200 OK):**
+```json
+[
+  {
+    "_id": "69b251bf70f22dcd82131b73",
+    "Title": "The Great API Test",
+    "ISBN": "123-456-789",
+    "Author": "Arnav",
+    "TotalCopies": 5,
+    "Genre": "Programming"
+  }
+]
+```
+
+### 3. Search Book by Author (GET)
+**Endpoint:** `GET /books/search?author=Arnav`
+**Response (Status: 200 OK):**
+```json
+[
+  {
+    "_id": "69b251bf70f22dcd82131b73",
+    "Title": "The Great API Test",
+    "Author": "Arnav",
+    "TotalCopies": 5
+  }
+]
+```
+
+### 4. Update Book Details (PUT)
+**Endpoint:** `PUT /books/69b251bf70f22dcd82131b73`
+**Request Body (JSON):**
+```json
+{
+  "TotalCopies": 10
+}
+```
+**Response (Status: 200 OK):**
+```json
+{
+  "_id": "69b251bf70f22dcd82131b73",
+  "Title": "The Great API Test",
+  "TotalCopies": 10,
+  "Author": "Arnav"
+}
+```
+
+### 5. Delete Book Record (DELETE)
+**Endpoint:** `DELETE /books/69b251bf70f22dcd82131b73`
+**Response (Status: 200 OK):**
+```json
+{
+  "message": "Book deleted successfully"
+}
+```
